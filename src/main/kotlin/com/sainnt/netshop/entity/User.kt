@@ -27,5 +27,7 @@ class User(
         @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE], mappedBy = "user")
         private val addresses: List<UserAddress>,
         @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
-        private val cart: Cart
+        private val cart: Cart,
+        @ManyToMany(mappedBy = "users")
+        private val roles: List<Role>
 )
