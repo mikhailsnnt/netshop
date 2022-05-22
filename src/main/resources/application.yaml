@@ -4,7 +4,7 @@ spring:
     username:
       postgres
     password:
-      sainntmask
+      somenextdummypassword
   jpa:
     hibernate:
       ddl-auto: validate
@@ -16,6 +16,12 @@ app:
         someverynotprodsecret
       expiration:
         300000
+api:
+  config:
+    defaultPageSize:
+      30
+    maxPageSize:
+      60
 server:
   servlet:
     context-path: /net-shop/api/

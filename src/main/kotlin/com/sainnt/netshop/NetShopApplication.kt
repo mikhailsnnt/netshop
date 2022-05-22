@@ -33,7 +33,7 @@ class NetShopApplication(
                 authenticationService.signup(it, listOf(RoleEnum.ADMIN))
                 logger.info("Admin ${it.phoneNumber} account created")
             }
-        } else if(userRepository.existsByRolesContaining(roleRepository.find(RoleEnum.ADMIN))) {
+        } else if(!userRepository.existsByRolesContaining(roleRepository.find(RoleEnum.ADMIN))) {
             logger.warn("No admins in DB, and no initialization arguments provided")
         }
     }
