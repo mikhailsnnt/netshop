@@ -43,7 +43,7 @@ class UserController(private val userService: UserService) {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("/{userId}")
+    @PutMapping("/{userId}/role")
     fun updateUserRoles(@PathVariable userId: Long, @RequestBody roles: List<RoleEnum>): ResponseEntity<UserDto>{
         return ResponseEntity.ok(userService.updateRoles(userId,roles))
     }
