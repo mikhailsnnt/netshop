@@ -49,7 +49,7 @@ class CatalogController(
 
     @PreAuthorize("hasRole('MANAGER')")
     @PostMapping
-    fun createCatalog(@RequestBody name: String, @PathVariable(required = false) parentId: Long?): CatalogDto {
+    fun createCatalog(@RequestBody name: String, @RequestParam(required = false) parentId: Long?): CatalogDto {
         return catalogService.create(name, parentId)
     }
 
