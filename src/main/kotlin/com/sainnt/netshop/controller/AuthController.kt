@@ -3,7 +3,6 @@ package com.sainnt.netshop.controller
 import com.sainnt.netshop.dto.JwtAuthenticationTokenDto
 import com.sainnt.netshop.dto.LoginDto
 import com.sainnt.netshop.dto.SignUpRequestDto
-import com.sainnt.netshop.entity.RoleEnum
 import com.sainnt.netshop.service.AuthenticationService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -17,10 +16,7 @@ class AuthController(private val authenticationService: AuthenticationService) {
     @PostMapping("/signup")
     fun signup(@RequestBody signupRequestDto: SignUpRequestDto): ResponseEntity<JwtAuthenticationTokenDto> {
         return ResponseEntity.ok(
-            authenticationService.signup(
-                signupRequestDto,
-                roles = listOf(RoleEnum.USER)
-            )
+            authenticationService.signup(signupRequestDto)
         )
     }
 
