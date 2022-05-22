@@ -1,0 +1,1 @@
+CREATE DATABASE net_shop
