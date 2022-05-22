@@ -18,4 +18,8 @@ class Product(
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "description_id")
     var productDescription: ProductDescription? = null
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="catalog_id", nullable = false)
+    lateinit var catalog: Catalog
 }
