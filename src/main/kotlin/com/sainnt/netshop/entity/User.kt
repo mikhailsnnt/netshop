@@ -1,33 +1,44 @@
 package com.sainnt.netshop.entity
 
-import lombok.Data
-import lombok.NoArgsConstructor
 import javax.persistence.*
 
-@Data
-@NoArgsConstructor
 @Entity
 @Table(name = "UserInfo")
 @SequenceGenerator(name = "userSequence", sequenceName = "USER_SEQ", initialValue = 1, allocationSize = 1)
-class User(
-        @Id
-        @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userSequence")
-        private val id: Long,
-        @Column(name = "user_name", nullable = false)
-        private val name: String,
-        @Column(name = "user_surname", nullable = false)
-        private val surname: String,
-        @Column(name = "user_patronymic")
-        private val patronymic: String?,
-        @Column(nullable = false, unique = true)
-        private val phoneNumber: String,
-        private val email: String?,
-        @OneToOne(optional = false, orphanRemoval = true, fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE])
-        private val credentials: Credentials,
-        @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE], mappedBy = "user")
-        private val addresses: List<UserAddress>,
-        @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
-        private val cart: Cart,
-        @ManyToMany(mappedBy = "users")
-        private val roles: List<Role>
-)
+class User() {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userSequence")
+    var id: Long? = null
+
+    @Column(name = "user_name", nullable = false)
+    lateinit var name: String
+
+    @Column(name = "user_surname", nullable = false)
+    lateinit var surname: String
+
+    @Column(name = "user_patronymic")
+    var patronymic: String? = null
+
+    @Column(nullable = false, unique = true)
+    lateinit var  phoneNumber: String
+    var email: String? = null
+
+    @OneToOne(optional = false, orphanRemoval = true, fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE])
+    lateinit var credentials: Credentials
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE], mappedBy = "user")
+    var addresses: List<UserAddress> = listOf()
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @JoinColumn(name="cart_id", nullable = false)
+    lateinit var cart: Cart
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @JoinTable(
+        name = "user_roles",
+        joinColumns = [JoinColumn(name = "role_id", nullable = false)],
+        inverseJoinColumns = [JoinColumn(name = "user_id", nullable = false)],
+        uniqueConstraints = [UniqueConstraint(columnNames = ["role_id", "user_id"])]
+    )
+    var roles: List<Role> = listOf()
+}
