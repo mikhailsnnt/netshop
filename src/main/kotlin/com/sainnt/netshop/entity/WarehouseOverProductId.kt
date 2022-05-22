@@ -5,6 +5,6 @@ import javax.persistence.*
 
 @Embeddable
 class WarehouseOverProductId(
-        private val warehouse: Warehouse,
-        private val product: Product,
+         val warehouse: Warehouse,
+         val product: Product,
 ) : Serializable

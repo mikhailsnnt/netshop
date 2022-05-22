@@ -5,6 +5,6 @@ import javax.persistence.Embeddable
 
 @Embeddable
 class CartOverProduct(
-        private val cart: Cart,
-        private val product: Product,
+    val cart: Cart,
+    val product: Product,
 ) : Serializable

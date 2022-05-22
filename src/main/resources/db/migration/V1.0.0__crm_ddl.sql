@@ -5,6 +5,10 @@ CREATE TABLE IF NOT EXISTS Credentials(
 );
 CREATE SEQUENCE IF NOT EXISTS CREDENTIALS_SEQ start with 1 increment by 1;
 
+CREATE TABLE IF NOT EXISTS Cart(
+    id BIGINT  PRIMARY KEY
+);
+CREATE SEQUENCE IF NOT EXISTS CART_SEQ START WITH 1 INCREMENT BY 1;
 /* Name of entity -> User.  Avoided "User" table because of reserved keyword*/
 CREATE TABLE IF NOT EXISTS user_info
 (
@@ -14,7 +18,8 @@ CREATE TABLE IF NOT EXISTS user_info
     user_patronymic VARCHAR(255),
     phone_number VARCHAR(16) NOT NULL UNIQUE,
     email VARCHAR(255) UNIQUE,
-    credentials_id BIGINT NOT NULL REFERENCES Credentials ON DELETE CASCADE
+    credentials_id BIGINT NOT NULL REFERENCES Credentials ON DELETE CASCADE,
+    cart_id BIGINT NOT NULL REFERENCES Cart ON DELETE CASCADE
 );
 CREATE  UNIQUE INDEX IF NOT EXISTS phone_number_idx ON user_info (phone_number);
 CREATE  UNIQUE INDEX IF NOT EXISTS email_idx ON user_info (email);
@@ -65,11 +70,6 @@ CREATE TABLE IF NOT EXISTS product_balance(
     PRIMARY KEY (warehouse_id, product_id)
 );
 
-CREATE TABLE IF NOT EXISTS Cart(
-    id BIGINT  PRIMARY KEY ,
-    user_id BIGINT NOT NULL REFERENCES user_info
-);
-CREATE SEQUENCE IF NOT EXISTS CART_SEQ START WITH 1 INCREMENT BY 1;
 
 CREATE TABLE IF NOT EXISTS cart_item(
     cart_id BIGINT NOT NULL,
