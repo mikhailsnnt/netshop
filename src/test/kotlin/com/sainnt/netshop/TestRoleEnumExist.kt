@@ -9,18 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
 class TestRoleEnumExist(@Autowired private val roleRepository: RoleRepository) {
-    @Test
-    fun adminRoleExists() {
-        assertDoesNotThrow { roleRepository.find(RoleEnum.ADMIN) }
-    }
 
     @Test
-    fun managerRoleExists() {
-        assertDoesNotThrow { roleRepository.find(RoleEnum.MANAGER) }
+    fun rolesExist() {
+        assertDoesNotThrow { RoleEnum.values().forEach(roleRepository::find)}
     }
 
-    @Test
-    fun userRoleExists() {
-        assertDoesNotThrow { roleRepository.find(RoleEnum.USER) }
-    }
 }

@@ -10,7 +10,6 @@ import com.sainnt.netshop.repository.UserRepository
 import com.sainnt.netshop.service.UserService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 
@@ -52,7 +51,7 @@ class UserServiceImpl(
     }
 
     private fun retrieve(id: Long): User {
-        return userRepository.findByIdOrNull(id) ?: throw NotFoundException("User with id $id not found")
+        return userRepository.findById(id).orElseThrow { NotFoundException("User with id $id not found") }
     }
 
     private fun mapToDto(user: User): UserDto {

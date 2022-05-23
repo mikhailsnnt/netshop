@@ -33,11 +33,11 @@ class User() {
     @JoinColumn(name="cart_id", nullable = false)
     lateinit var cart: Cart
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "user_roles",
-        joinColumns = [JoinColumn(name = "role_id", nullable = false)],
-        inverseJoinColumns = [JoinColumn(name = "user_id", nullable = false)],
+        joinColumns = [JoinColumn(name = "user_id", nullable = false)],
+        inverseJoinColumns = [JoinColumn(name = "role_id", nullable = false)],
         uniqueConstraints = [UniqueConstraint(columnNames = ["role_id", "user_id"])]
     )
     var roles: List<Role> = listOf()
