@@ -20,7 +20,7 @@ class ProductController(private val productService: ProductService) {
         return ResponseEntity.ok(productService.getById(productId))
     }
 
-    @GetMapping("/{productId}/desccription")
+    @GetMapping("/{productId}/description")
     fun getDescription(@PathVariable productId: Long): ResponseEntity<String> {
         return ResponseEntity.ok(productService.getDescription(productId))
     }
@@ -42,7 +42,7 @@ class ProductController(private val productService: ProductService) {
                 name,
                 catalogId,
                 description,
-                page,
+                page-1,
                 pageSize,
                 sortBy,
                 sortDirection

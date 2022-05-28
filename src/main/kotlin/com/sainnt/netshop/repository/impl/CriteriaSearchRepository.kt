@@ -24,7 +24,7 @@ abstract class CriteriaSearchRepository {
         this.restriction?.let(countQuery::where)
         this.groupRestriction?.let(countQuery::having )
         this.groupList?.let(countQuery::groupBy)
-        this.isDistinct?.let(countQuery::distinct)
+        this.isDistinct.let(countQuery::distinct)
         val totalCount = entityManager.createQuery(countQuery).singleResult
         if(totalCount < pageRequest.pageNumber*pageRequest.pageSize)
             return Page.empty(Pageable.ofSize(pageRequest.pageSize))

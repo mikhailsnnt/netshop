@@ -15,5 +15,5 @@ interface UserService {
 
     fun updateRoles(userId: Long, roles: List<RoleEnum>): UserDto
 
-    fun deleteById(userId: Long)
+    fun deleteById(id: Long)
 }

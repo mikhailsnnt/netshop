@@ -8,7 +8,7 @@ import org.springframework.data.domain.Sort
 
 
 interface ProductService {
-    fun create(productCreateDto: ProductCreateDto): ProductDto
+    fun create(createDto: ProductCreateDto): ProductDto
 
     fun search(
         name: String?, catalogId: Long?, description: String?,
@@ -20,7 +20,7 @@ interface ProductService {
 
     fun getById(id: Long): ProductDto
 
-    fun update(id: Long, productDto: ProductUpdateDto): ProductDto
+    fun update(id: Long, updateDto: ProductUpdateDto): ProductDto
 
     fun deleteById(id: Long)
 }
