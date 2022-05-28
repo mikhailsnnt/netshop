@@ -4,11 +4,10 @@ spring:
     username:
       postgres
     password:
-      sainntmask
+      somenextdummypasswords
   jpa:
     hibernate:
       ddl-auto: validate
-    show-sql: true
 app:
   security:
     jwt:
