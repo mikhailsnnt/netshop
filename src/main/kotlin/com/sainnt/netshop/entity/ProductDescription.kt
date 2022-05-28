@@ -12,7 +12,10 @@ import javax.persistence.*
 )
 class ProductDescription(
     @Column(nullable = false)
-    val description: String
+    var description: String,
+    @OneToOne
+    @JoinColumn(name = "product_id")
+    val product: Product
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "productDescriptionSequence")

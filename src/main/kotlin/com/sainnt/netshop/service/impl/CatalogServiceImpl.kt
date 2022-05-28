@@ -5,6 +5,7 @@ import com.sainnt.netshop.entity.Catalog
 import com.sainnt.netshop.exception.NotFoundException
 import com.sainnt.netshop.repository.CatalogRepository
 import com.sainnt.netshop.service.CatalogService
+import com.sainnt.netshop.util.retrieve
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
@@ -15,7 +16,7 @@ class CatalogServiceImpl(
 ) : CatalogService {
     override fun create(name: String, parentId: Long?): CatalogDto {
         val catalog = Catalog(name)
-        catalog.parent = parentId?.let(this::retrieveById) ?: null
+        catalog.parent = parentId?.let(catalogRepository::retrieve)
         catalogRepository.save(catalog)
         return mapToDto(catalog)
     }
@@ -28,7 +29,7 @@ class CatalogServiceImpl(
     }
 
     override fun getById(id: Long): CatalogDto {
-        return retrieveById(id).let(this::mapCatalogDtoAndIncludeChildren)
+        return catalogRepository.retrieve(id).let(this::mapCatalogDtoAndIncludeChildren)
     }
 
     override fun getRootCatalogs(page: Int, pageSize: Int): Page<CatalogDto> {
@@ -36,11 +37,7 @@ class CatalogServiceImpl(
     }
 
     override fun deleteById(id: Long) {
-        retrieveById(id).let(catalogRepository::delete)
-    }
-
-    private fun retrieveById(id: Long): Catalog {
-        return catalogRepository.findById(id).orElseThrow { NotFoundException("Catalog with id $id not found") }
+        catalogRepository.retrieve(id).let(catalogRepository::delete)
     }
 
     private fun mapCatalogDtoAndIncludeChildren(catalog: Catalog): CatalogDto {
