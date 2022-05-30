@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/netshop_users?createIfNotExists=true"
+    username:
+      username
+    password:
+      password
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+api:
+  config:
+    defaultPageSize:
+      30
+    maxPageSize:
+      60
+server:
+  servlet:
+    context-path: /net-shop/api/
