@@ -1,5 +1,5 @@
 package com.sainnt.netshop.common.dto
 
-enum class Role {
+enum class RoleEnum {
     ADMIN, MANAGER
 }
