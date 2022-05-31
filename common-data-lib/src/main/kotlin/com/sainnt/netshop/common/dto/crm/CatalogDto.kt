@@ -1,4 +1,4 @@
-package com.sainnt.netshop.common.dto
+package com.sainnt.netshop.common.dto.crm
 
 import com.fasterxml.jackson.annotation.JsonInclude
 

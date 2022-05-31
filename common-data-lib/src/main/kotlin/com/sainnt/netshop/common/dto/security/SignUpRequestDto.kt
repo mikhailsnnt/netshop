@@ -1,4 +1,4 @@
-package com.sainnt.netshop.common.dto
+package com.sainnt.netshop.common.dto.security
 
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
