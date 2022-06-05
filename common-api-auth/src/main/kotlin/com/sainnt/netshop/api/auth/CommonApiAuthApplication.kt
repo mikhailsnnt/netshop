@@ -1,14 +1,15 @@
-package com.sainnt.netshop.api.userprofile
+package com.sainnt.netshop.api.auth
+
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient
-import org.springframework.kafka.annotation.EnableKafka
+import org.springframework.cloud.openfeign.EnableFeignClients
 
 @SpringBootApplication
-@EnableKafka
+@EnableFeignClients
 @EnableEurekaClient
-class CommonApiUserprofileApplication
+class CommonApiAuthApplication
 
 fun main(args: Array<String>) {
-	runApplication<CommonApiUserprofileApplication>(*args)
+	runApplication<CommonApiAuthApplication>(*args)
 }

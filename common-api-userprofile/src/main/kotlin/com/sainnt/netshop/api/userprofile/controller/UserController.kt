@@ -2,12 +2,14 @@ package com.sainnt.netshop.api.userprofile.controller
 
 import com.sainnt.netshop.api.userprofile.service.UserService
 import com.sainnt.netshop.api.userprofile.config.ApiConfig
-import com.sainnt.netshop.common.dto.RoleEnum
+import com.sainnt.netshop.common.dto.security.LoginDto
+import com.sainnt.netshop.common.dto.security.RoleEnum
+import com.sainnt.netshop.common.dto.security.SignUpRequestDto
 import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
-import com.sainnt.netshop.common.dto.UserDto
+import com.sainnt.netshop.common.dto.security.UserDto
 import com.sainnt.netshop.common.exception.NetShopApiException
 import javax.validation.constraints.Min
 
@@ -18,6 +20,17 @@ class UserController(
     private val userService: UserService,
     private val apiConfig: ApiConfig
 ) {
+
+    @PostMapping
+    fun createUser(@RequestBody userSignUpRequestDto: SignUpRequestDto): ResponseEntity<Long>{
+        return ResponseEntity.ok(userService.createUser(userSignUpRequestDto))
+    }
+
+    @PostMapping("/validate")
+    fun validateCredentials(@RequestBody loginDto: LoginDto): ResponseEntity<UserDto>{
+        return ResponseEntity.ok(userService.validateCredentials(loginDto))
+    }
+
 
     @GetMapping
     fun getAuthenticatedUser(): ResponseEntity<UserDto> {

@@ -1,7 +1,7 @@
 package com.sainnt.netshop.api.userprofile.repository
 
 import com.sainnt.netshop.api.userprofile.entity.Role
-import com.sainnt.netshop.common.dto.RoleEnum
+import com.sainnt.netshop.common.dto.security.RoleEnum
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 

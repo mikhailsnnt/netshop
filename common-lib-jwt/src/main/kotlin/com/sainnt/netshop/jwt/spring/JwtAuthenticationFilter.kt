@@ -1,41 +1,37 @@
-package com.sainnt.netshop.security
+package com.sainnt.netshop.jwt.spring
 
+import com.sainnt.netshop.jwt.utils.JwtService
+import com.sainnt.netshop.jwt.utils.JwtTokenData
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
-import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-@Component
 class JwtAuthenticationFilter(
-    private val jwtTokenHelper: JwtTokenHelper,
-    private val userDetailsService: UserDetailsService
-) : OncePerRequestFilter() {
+    private val jwtTokenHelper: JwtService,
+) : OncePerRequestFilter()
+{
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        getUsernameFromToken(request)?.let(userDetailsService::loadUserByUsername)
-            ?.let {
+        parseRequestTokenData(request)?.let {
                 val token =
-                    UsernamePasswordAuthenticationToken(it.username, null, it.authorities)
+                    UsernamePasswordAuthenticationToken(it, null, it.roles.map(::SimpleGrantedAuthority))
                 token.details = WebAuthenticationDetailsSource().buildDetails(request)
                 SecurityContextHolder.getContext().authentication = token
             }
         filterChain.doFilter(request, response)
     }
 
-    fun getUsernameFromToken(request: HttpServletRequest): String? {
+    private fun parseRequestTokenData(request: HttpServletRequest): JwtTokenData? {
         return request.getHeader("Authorization")?.let {
             it.substringAfter("Bearer ")
-        }?.apply { jwtTokenHelper.validateToken(this) }
-            ?.let(jwtTokenHelper::getUsernameFromJwt)
+        }?.let(jwtTokenHelper::parseClaims)
     }
-
-
 }

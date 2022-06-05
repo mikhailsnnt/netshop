@@ -1,9 +1,9 @@
-package com.sainnt.netshop.controller
+package com.sainnt.netshop.api.auth.controller
 
-import com.sainnt.netshop.dto.JwtAuthenticationTokenDto
-import com.sainnt.netshop.dto.LoginDto
-import com.sainnt.netshop.dto.SignUpRequestDto
-import com.sainnt.netshop.service.AuthenticationService
+import com.sainnt.netshop.api.auth.service.AuthenticationService
+import com.sainnt.netshop.common.dto.security.JwtAuthenticationTokenDto
+import com.sainnt.netshop.common.dto.security.LoginDto
+import com.sainnt.netshop.common.dto.security.SignUpRequestDto
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

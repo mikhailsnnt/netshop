@@ -1,14 +1,37 @@
 spring:
   datasource:
-    url: "jdbc:postgresql://localhost:5432/netshop_users?createIfNotExists=true"
-    username:
-      username
-    password:
-      password
+    url: "jdbc:postgresql://postgres/users"
+
   jpa:
     hibernate:
       ddl-auto: validate
     show-sql: true
+  application:
+    name:
+      common-api-userprofile
+  eureka:
+    client:
+      serviceUrl:
+        defaultZone:
+           http://common-eureka-spring:8761/eureka/
+    instance:
+      preferIpAddress: true
+  kafka:
+    bootstrap-servers: ${kafka_bootstrap_servers:broker:9092}
+    producer:
+      client-id: common-api-userprofile
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      retries: 2
+
+auto.create.topics.enable: true
+
+
+netshop:
+  kafka:
+    topics:
+      userprofile:
+        userprofile
 api:
   config:
     defaultPageSize:

@@ -1,21 +1,36 @@
 package com.sainnt.netshop.api.userprofile.service
 
+import com.sainnt.netshop.api.userprofile.entity.Credentials
 import com.sainnt.netshop.api.userprofile.entity.Role
 import com.sainnt.netshop.api.userprofile.entity.User
+import com.sainnt.netshop.api.userprofile.repository.CredentialsRepository
 import com.sainnt.netshop.api.userprofile.repository.RoleRepository
 import com.sainnt.netshop.api.userprofile.repository.UserRepository
-import com.sainnt.netshop.common.dto.RoleEnum
-import com.sainnt.netshop.common.dto.UserDto
+import com.sainnt.netshop.common.dto.security.LoginDto
+import com.sainnt.netshop.common.dto.security.RoleEnum
+import com.sainnt.netshop.common.dto.security.SignUpRequestDto
+import com.sainnt.netshop.common.dto.security.UserDto
+import com.sainnt.netshop.common.exception.NetShopApiException
 import com.sainnt.netshop.common.exception.NotFoundException
+import com.sainnt.netshop.common.exception.security.BadCredentialsException
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
+import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class UserService(
     private val userRepository: UserRepository,
-    private val roleRepository: RoleRepository
+    private val roleRepository: RoleRepository,
+    private val credentialsRepository: CredentialsRepository,
+    private val passwordEncoder: PasswordEncoder,
+    private val kafkaTemplate: KafkaTemplate<String,String>,
+    @Value("\${netshop.kafka.topics.userprofile}") //TODO Configuration server
+    private val topic:String,
 ) {
     fun getUserFromSecurityContext(): UserDto {
         val userPhone = SecurityContextHolder.getContext()
@@ -63,6 +78,32 @@ class UserService(
             patronymic = user.patronymic,
             roles = user.roles.map(Role::name)
         )
+    }
+
+    @Transactional
+    fun createUser(signUpRequestDto: SignUpRequestDto): Long {
+        if (userRepository.existsByPhoneNumber(signUpRequestDto.phoneNumber))
+            throw NetShopApiException("Phone number is already used")
+        if (signUpRequestDto.email?.let(userRepository::existsByEmail) == true)
+            throw NetShopApiException("Email is already used")
+        var user = User()
+        user.name = signUpRequestDto.name
+        user.surname = signUpRequestDto.surname
+        user.patronymic = signUpRequestDto.patronymic
+        user.email = signUpRequestDto.email
+        user.phoneNumber = signUpRequestDto.phoneNumber
+        user.credentials = credentialsRepository.save(Credentials(passwordEncoder.encode(signUpRequestDto.password)))
+        val newUserId = userRepository.save(user).id!!
+        kafkaTemplate.send(topic,"created",newUserId.toString())
+        return newUserId
+    }
+
+    fun validateCredentials(loginDto: LoginDto): UserDto {
+        val user = userRepository.findByPhoneNumberOrEmail(loginDto.phoneOrEmail,loginDto.phoneOrEmail)
+            ?: throw BadCredentialsException()
+        if(!passwordEncoder.matches(loginDto.password, user.credentials.credentials))
+            throw BadCredentialsException()
+        return mapToDto(user)
     }
 
 }

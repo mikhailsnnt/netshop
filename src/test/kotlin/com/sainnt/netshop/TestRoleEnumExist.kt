@@ -1,7 +1,5 @@
 package com.sainnt.netshop
 
-import com.sainnt.netshop.entity.RoleEnum
-import com.sainnt.netshop.repository.RoleRepository
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.springframework.beans.factory.annotation.Autowired
