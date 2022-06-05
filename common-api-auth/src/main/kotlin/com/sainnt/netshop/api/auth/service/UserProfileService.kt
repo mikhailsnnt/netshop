@@ -6,11 +6,11 @@ import com.sainnt.netshop.common.dto.security.SignUpRequestDto
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.*
 
-@FeignClient("common-api-userprofile")
+@FeignClient("COMMON-API-USERPROFILE")
 interface UserProfileService {
-    @RequestMapping(method = [RequestMethod.POST], value =["/net-shop/api/v1/user"])
+    @RequestMapping(method = [RequestMethod.POST], value =["/user"])
     fun save(userSignUpRequestDto: SignUpRequestDto): Long
 
-    @RequestMapping(method = [RequestMethod.POST], value =["/net-shop/api/v1/user/validate"])
+    @RequestMapping(method = [RequestMethod.POST], value =["/user/validate"])
     fun validateCredentials(loginRequestDto: LoginDto): UserDto
 }

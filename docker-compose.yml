@@ -40,6 +40,16 @@ services:
     ports:
       - "8761:8761"
 
+  common-spring-gateway:
+    depends_on:
+      - common-eureka-spring
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://common-eureka-spring:8761/eureka
+    image: netshop-common-spring-gateway:1.0.0
+    ports:
+      - "8762:8762"
+
+
   common-api-userprofile:
     depends_on:
       - broker

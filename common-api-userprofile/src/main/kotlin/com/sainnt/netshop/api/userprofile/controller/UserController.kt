@@ -15,7 +15,7 @@ import javax.validation.constraints.Min
 
 
 @RestController
-@RequestMapping("/v1/user")
+@RequestMapping("/user")
 class UserController(
     private val userService: UserService,
     private val apiConfig: ApiConfig

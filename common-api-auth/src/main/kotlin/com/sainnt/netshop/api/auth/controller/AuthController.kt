@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/v1/auth")
+@RequestMapping("/auth")
 class AuthController(private val authenticationService: AuthenticationService) {
     @PostMapping("/signup")
     fun signup(@RequestBody signupRequestDto: SignUpRequestDto): ResponseEntity<JwtAuthenticationTokenDto> {

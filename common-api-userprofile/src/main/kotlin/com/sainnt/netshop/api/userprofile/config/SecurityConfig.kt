@@ -41,8 +41,8 @@ class SecurityConfig(
             .csrf().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and().authorizeRequests()
-            .antMatchers(HttpMethod.POST,"/v1/user").permitAll() // Allow registration
-            .antMatchers(HttpMethod.POST, "/v1/user/validate").permitAll()
+            .antMatchers(HttpMethod.POST,"/user").permitAll() // Allow registration
+            .antMatchers(HttpMethod.POST, "/user/validate").permitAll()
             .anyRequest().authenticated()
         return http.build()
     }

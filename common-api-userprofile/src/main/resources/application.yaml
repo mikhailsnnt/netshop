@@ -8,7 +8,7 @@ spring:
     show-sql: true
   application:
     name:
-      common-api-userprofile
+      COMMON-API-USERPROFILE
   eureka:
     client:
       serviceUrl:
@@ -38,6 +38,3 @@ api:
       30
     maxPageSize:
       60
-server:
-  servlet:
-    context-path: /net-shop/api/
