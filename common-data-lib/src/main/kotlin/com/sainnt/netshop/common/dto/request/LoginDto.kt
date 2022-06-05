@@ -1,4 +1,4 @@
-package com.sainnt.netshop.common.dto.security
+package com.sainnt.netshop.common.dto.request
 
 data class LoginDto(
     val phoneOrEmail: String,

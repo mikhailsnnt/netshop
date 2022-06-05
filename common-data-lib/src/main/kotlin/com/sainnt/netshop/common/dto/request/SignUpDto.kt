@@ -1,11 +1,11 @@
-package com.sainnt.netshop.common.dto.security
+package com.sainnt.netshop.common.dto.request
 
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Size
 
 
-data class SignUpRequestDto(
+data class SignUpDto(
         @NotBlank
         val name: String,
         @NotBlank
