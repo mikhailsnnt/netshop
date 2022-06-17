@@ -8,10 +8,15 @@ import java.security.PublicKey
 import java.security.spec.X509EncodedKeySpec
 import java.util.*
 
-class JwtService(private val publicKey: String) {
+class JwtService(encodedPublicKey: String) {
+    private val publicKey: PublicKey
+    init{
+        publicKey = getPublicKey(encodedPublicKey.toByteArray())
+    }
+
     fun parseClaims(token:String): JwtTokenData{
         try{
-        return Jwts.parser().setSigningKey(getPublicKey(publicKey.toByteArray())).parseClaimsJws(token).let {
+        return Jwts.parser().setSigningKey(publicKey).parseClaimsJws(token).let {
             JwtTokenData(it.body.subject, it.body.getOrDefault(ROLES_KEY, emptyList<String>()) as List<String>)
         }
         }catch (e: ExpiredJwtException){
@@ -21,7 +26,7 @@ class JwtService(private val publicKey: String) {
 
     private fun getPublicKey(bytes: ByteArray): PublicKey {
         return Base64.getDecoder().decode(bytes).let {
-            val spec = X509EncodedKeySpec(bytes)
+            val spec = X509EncodedKeySpec(it)
             val factory = KeyFactory.getInstance("RSA")
             factory.generatePublic(spec)
         }
