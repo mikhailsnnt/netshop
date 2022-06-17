@@ -5,8 +5,6 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 class SecurityConfig (
-    @Value("\${jwt.secret}")
-    val privateKey: String,
     @Value("\${jwt.tokenExpiration}")
     val tokenExpiration: Long
     )
