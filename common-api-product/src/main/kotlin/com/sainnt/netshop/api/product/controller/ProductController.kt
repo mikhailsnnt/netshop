@@ -11,13 +11,16 @@ import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 import javax.validation.constraints.Min
 import javax.validation.constraints.NotBlank
+import javax.validation.constraints.NotNull
 
 @RestController
 @RequestMapping("/product")
 class ProductController(private val productService: ProductService) {
-    @GetMapping("/{productId}")
-    fun getById(@PathVariable productId: Long): ResponseEntity<ProductDto> {
-        return ResponseEntity.ok(productService.getById(productId))
+    @GetMapping("/{productIds}")
+    fun getByIds(@PathVariable @NotNull productIds: Set<Long>): ResponseEntity<*> {
+        if(productIds.size == 1)
+            return ResponseEntity.ok(productService.getById(productIds.iterator().next()))
+        return ResponseEntity.ok(productService.getByIds(productIds))
     }
 
     @GetMapping("/{productId}/description")

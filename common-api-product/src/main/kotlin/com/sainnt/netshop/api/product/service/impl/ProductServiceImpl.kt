@@ -59,6 +59,10 @@ class ProductServiceImpl(
         return productRepository.retrieve(id).let(this::mapToDto)
     }
 
+    override fun getByIds(ids: Set<Long>): List<ProductDto> {
+        return productRepository.findAllById(ids).map(this::mapToDto)
+    }
+
     override fun update(id: Long, updateDto: ProductUpdateDto): ProductDto {
         return productRepository.retrieve(id).let {
             updateDto.name?.apply{it.name=this}

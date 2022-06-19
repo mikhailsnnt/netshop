@@ -20,6 +20,8 @@ interface ProductService {
 
     fun getById(id: Long): ProductDto
 
+    fun getByIds(ids: Set<Long>): List<ProductDto>
+
     fun update(id: Long, updateDto: ProductUpdateDto): ProductDto
 
     fun deleteById(id: Long)
