@@ -27,6 +27,14 @@ spring:
           uri: lb://COMMON-API-AUTH/
           predicates:
             - Path=/auth/**
+        - id: product_route
+          uri: lb://COMMON-API-PRODUCT/
+          predicates:
+            - Path=/product/**
+        - id: catalog_route
+          uri: lb://COMMON-API-PRODUCT/
+          predicates:
+            - Path=/catalog/**
 management:
   endpoint:
     gateway:

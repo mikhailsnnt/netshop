@@ -1,4 +1,4 @@
-package com.sainnt.netshop.entity
+package com.sainnt.netshop.api.product.entity
 
 import javax.persistence.*
 
@@ -9,17 +9,15 @@ class Product(
     @Column(name = "product_name", nullable = false)
     var name: String,
     @Column(nullable = false)
-    var price: Long
+    var price: Long,
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="catalog_id", nullable = false)
+    var catalog: Catalog
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "productSequence")
     val id: Long? = null
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "description_id")
-    var productDescription: ProductDescription? = null
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="catalog_id", nullable = false)
-    lateinit var catalog: Catalog
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "product")
+    var description: ProductDescription? = null
 }

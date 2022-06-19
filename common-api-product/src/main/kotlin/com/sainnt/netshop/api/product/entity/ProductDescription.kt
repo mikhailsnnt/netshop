@@ -1,4 +1,4 @@
-package com.sainnt.netshop.entity
+package com.sainnt.netshop.api.product.entity
 
 import javax.persistence.*
 
@@ -12,7 +12,10 @@ import javax.persistence.*
 )
 class ProductDescription(
     @Column(nullable = false)
-    val description: String
+    var description: String,
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="product_id", nullable = false)
+    val product: Product,
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "productDescriptionSequence")

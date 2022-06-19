@@ -1,16 +1,17 @@
-package com.sainnt.netshop.controller
+package com.sainnt.netshop.api.product.controller
 
-import com.sainnt.netshop.config.ApiConfig
-import com.sainnt.netshop.dto.CatalogDto
-import com.sainnt.netshop.exception.NetShopApiException
-import com.sainnt.netshop.service.CatalogService
+import com.sainnt.netshop.api.product.config.ApiConfig
+import com.sainnt.netshop.api.product.service.CatalogService
+import com.sainnt.netshop.common.dto.crm.CatalogDto
+import com.sainnt.netshop.common.dto.request.CatalogCreateDto
+import com.sainnt.netshop.common.exception.NetShopApiException
 import org.springframework.data.domain.Page
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 import javax.validation.constraints.Min
 
 @RestController
-@RequestMapping("/v1/catalog")
+@RequestMapping("/catalog")
 class CatalogController(
     private val catalogService: CatalogService,
     private val apiConfig: ApiConfig
@@ -49,8 +50,8 @@ class CatalogController(
 
     @PreAuthorize("hasRole('MANAGER')")
     @PostMapping
-    fun createCatalog(@RequestBody name: String, @RequestParam(required = false) parentId: Long?): CatalogDto {
-        return catalogService.create(name, parentId)
+    fun createCatalog(@RequestBody catalogCreateDto: CatalogCreateDto): CatalogDto {
+        return catalogService.create(catalogCreateDto)
     }
 
     @PreAuthorize("hasRole('MANAGER')")

@@ -1,10 +1,11 @@
-package com.sainnt.netshop.service
+package com.sainnt.netshop.api.product.service
 
-import com.sainnt.netshop.dto.CatalogDto
+import com.sainnt.netshop.common.dto.crm.CatalogDto
+import com.sainnt.netshop.common.dto.request.CatalogCreateDto
 import org.springframework.data.domain.Page
 
 interface CatalogService {
-    fun create(name:String, parentId: Long? = null): CatalogDto
+    fun create(catalogCreateDto: CatalogCreateDto): CatalogDto
 
     fun search(name: String?, page: Int = 0, pageSize: Int): Page<CatalogDto>
 

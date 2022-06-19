@@ -1,8 +1,8 @@
-package com.sainnt.netshop.entity
+package com.sainnt.netshop.api.product.entity
 
 import javax.persistence.*
 
-@Entity //Shall move to NON SQL Database
+@Entity
 @SequenceGenerator(name = "catalogSequence", sequenceName = "CATALOG_SEQ", initialValue = 1, allocationSize = 1)
 class Catalog(@Column(name="catalog_name",nullable = false) val name: String) {
     @Id

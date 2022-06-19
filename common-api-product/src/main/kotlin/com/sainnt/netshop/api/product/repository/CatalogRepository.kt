@@ -1,8 +1,7 @@
-package com.sainnt.netshop.repository;
+package com.sainnt.netshop.api.product.repository;
 
-import com.sainnt.netshop.entity.Catalog
+import com.sainnt.netshop.api.product.entity.Catalog
 import org.springframework.data.domain.Page
-import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.PagingAndSortingRepository
 
