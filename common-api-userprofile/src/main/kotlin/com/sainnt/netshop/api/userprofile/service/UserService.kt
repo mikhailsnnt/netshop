@@ -13,6 +13,7 @@ import com.sainnt.netshop.common.dto.security.UserDto
 import com.sainnt.netshop.common.exception.NetShopApiException
 import com.sainnt.netshop.common.exception.NotFoundException
 import com.sainnt.netshop.common.exception.security.BadCredentialsException
+import com.sainnt.netshop.jwt.utils.JwtTokenData
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
@@ -33,10 +34,10 @@ class UserService(
     private val topic:String,
 ) {
     fun getUserFromSecurityContext(): UserDto {
-        val userPhone = SecurityContextHolder.getContext()
+        val tokenData = SecurityContextHolder.getContext()
             .authentication
-            .principal
-        return findByPhoneOrEmail(userPhone as String)
+            .principal as JwtTokenData
+        return findById(tokenData.subject.toLong())
     }
 
     fun findById(id: Long): UserDto {
@@ -86,7 +87,7 @@ class UserService(
             throw NetShopApiException("Phone number is already used")
         if (signUpRequestDto.email?.let(userRepository::existsByEmail) == true)
             throw NetShopApiException("Email is already used")
-        var user = User()
+        val user = User()
         user.name = signUpRequestDto.name
         user.surname = signUpRequestDto.surname
         user.patronymic = signUpRequestDto.patronymic

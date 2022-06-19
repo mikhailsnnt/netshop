@@ -38,7 +38,7 @@ class UserController(
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/all")
+    @GetMapping("/search")
     fun getAllUsers(
         @Min(1, message = "Page number cannot be less then 1") @RequestParam(defaultValue = "1") page: Int,
         @Min(1, message = "Page size must be greater then 1") @RequestParam(
