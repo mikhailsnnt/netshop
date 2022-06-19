@@ -81,6 +81,16 @@ services:
       - eureka.client.serviceUrl.defaultZone=http://common-eureka-spring:8761/eureka
       - netshop.security.pbkey=${KEY_PUBLIC}
 
+  common-api-cart:
+    depends_on:
+      - common-api-product
+    image: netshop-common-api-cart:1.0.0
+    environment:
+      - spring.datasource.username=${POSTGRES_USER}
+      - spring.datasource.password=${POSTGRES_PASSWORD}
+      - eureka.client.serviceUrl.defaultZone=http://common-eureka-spring:8761/eureka
+      - netshop.security.pbkey=${KEY_PUBLIC}
+
 volumes:
   postgres:
     driver: local
