@@ -7,7 +7,7 @@ import javax.persistence.*
 class Role(
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roleSequence")
-    val id: Long,
+    val id: Long = 0,
     @Column(name = "role_name", nullable = false, unique = true)
     val name: String,
 )

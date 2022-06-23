@@ -8,4 +8,6 @@ import org.springframework.data.jpa.repository.Query
 interface RoleRepository : JpaRepository<Role, Long> {
     @Query("select r from Role r where r.name = :#{#roleEnum.toString()}")
     fun find(roleEnum: RoleEnum): Role
+
+    fun existsByName(name: String): Boolean
 }
