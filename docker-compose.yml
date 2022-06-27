@@ -1,0 +1,96 @@
+version: '3'
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.0.1
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  broker:
+    image: confluentinc/cp-kafka:7.0.1
+    container_name: broker
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://broker:29092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_MULTIPLE_DATABASES=users,product
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+
+  common-eureka-spring:
+    image: netshop-common-eureka-spring:1.0.0
+    ports:
+      - "8761:8761"
+
+  common-spring-gateway:
+    depends_on:
+      - common-eureka-spring
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://common-eureka-spring:8761/eureka
+    image: netshop-common-spring-gateway:1.0.0
+    ports:
+      - "8762:8762"
+
+
+  common-api-userprofile:
+    depends_on:
+      - broker
+      - postgres
+      - common-eureka-spring
+    image: netshop-common-api-userprofile:1.0.0
+    environment:
+      - spring.datasource.username=${POSTGRES_USER}
+      - spring.datasource.password=${POSTGRES_PASSWORD}
+      - eureka.client.serviceUrl.defaultZone=http://common-eureka-spring:8761/eureka
+      - netshop.security.pbkey=${KEY_PUBLIC}
+
+  common-api-auth:
+    depends_on:
+      - common-api-userprofile
+    image: netshop-common-api-auth:1.0.0
+    environment:
+      - jwt.secret=${KEY_PRIVATE}
+      - eureka.client.serviceUrl.defaultZone=http://common-eureka-spring:8761/eureka
+
+  common-api-product:
+    depends_on:
+      - postgres
+      - common-eureka-spring
+    image: netshop-common-api-product:1.0.0
+    environment:
+      - spring.datasource.username=${POSTGRES_USER}
+      - spring.datasource.password=${POSTGRES_PASSWORD}
+      - eureka.client.serviceUrl.defaultZone=http://common-eureka-spring:8761/eureka
+      - netshop.security.pbkey=${KEY_PUBLIC}
+
+  common-api-cart:
+    depends_on:
+      - common-api-product
+    image: netshop-common-api-cart:1.0.0
+    environment:
+      - spring.datasource.username=${POSTGRES_USER}
+      - spring.datasource.password=${POSTGRES_PASSWORD}
+      - eureka.client.serviceUrl.defaultZone=http://common-eureka-spring:8761/eureka
+      - netshop.security.pbkey=${KEY_PUBLIC}
+
+volumes:
+  postgres:
+    driver: local

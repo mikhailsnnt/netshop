@@ -1,0 +1,49 @@
+server.port: 8762
+spring:
+  application:
+    name:
+      SPRING-GATEWAY
+  eureka:
+    client:
+      serviceUrl:
+        defaultZone:
+          http://common-eureka-spring:8761/eureka/
+    instance:
+      preferIpAddress: true
+
+  cloud:
+    gateway:
+      discovery:
+          locator:
+            enabled: true
+      routes:
+        - id: userprofile_route
+          uri: lb://COMMON-API-USERPROFILE/
+          predicates:
+            - Path=/userprofile/**
+          filters:
+            - StripPrefix=1
+        - id: auth_route
+          uri: lb://COMMON-API-AUTH/
+          predicates:
+            - Path=/auth/**
+        - id: product_route
+          uri: lb://COMMON-API-PRODUCT/
+          predicates:
+            - Path=/product/**
+        - id: catalog_route
+          uri: lb://COMMON-API-PRODUCT/
+          predicates:
+            - Path=/catalog/**
+        - id: catalog_route
+          uri: lb://COMMON-API-CART/
+          predicates:
+            - Path=/cart/**
+management:
+  endpoint:
+    gateway:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: gateway

@@ -2,10 +2,6 @@ package com.sainnt.netshop
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.sainnt.netshop.dto.SignUpRequestDto
-import com.sainnt.netshop.entity.RoleEnum
-import com.sainnt.netshop.repository.RoleRepository
-import com.sainnt.netshop.repository.UserRepository
-import com.sainnt.netshop.service.AuthenticationService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.boot.CommandLineRunner

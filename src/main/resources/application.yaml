@@ -14,7 +14,7 @@ app:
       secret:
         someverynotprodsecret
       expiration:
-        300000
+        303330000
 api:
   config:
     defaultPageSize:

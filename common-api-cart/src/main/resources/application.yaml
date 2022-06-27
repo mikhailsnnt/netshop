@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: "jdbc:postgresql://postgres/cart"
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+  application:
+    name:
+      COMMON-API-CART
+  eureka:
+    client:
+      serviceUrl:
+        defaultZone:
+          http://common-eureka-spring:8761/eureka/
+    instance:
+      preferIpAddress: true
+
+auto.create.topics.enable: true
+
+api:
+  config:
+    defaultPageSize:
+      30
+    maxPageSize:
+      60
