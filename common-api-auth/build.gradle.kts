@@ -41,9 +41,9 @@ dependencies {
 	implementation("javax.xml.bind:jaxb-api:2.4.0-b180830.0359")
 
 
-	implementation("com.sainnt.netshop:common-lib-jwt:1.0.1")
-	implementation("com.sainnt.netshop:common-data-lib:1.0.2")
-	implementation("com.sainnt.netshop:common-exception-lib:1.0.2")
+	implementation("com.sainnt.netshop:common-lib-jwt:1.0.3")
+	implementation("com.sainnt.netshop:common-data-lib:1.0.5")
+	implementation("com.sainnt.netshop:common-exception-lib:1.0.4")
 }
 
 tasks.withType<KotlinCompile> {

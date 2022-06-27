@@ -35,3 +35,4 @@ build/
 .jpb
 
 .env
+postgres-data

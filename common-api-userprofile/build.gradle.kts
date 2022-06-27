@@ -48,9 +48,9 @@ dependencies {
 	testImplementation("org.springframework.kafka:spring-kafka-test")
 	testImplementation("org.springframework.security:spring-security-test")
 
-	implementation("com.sainnt.netshop:common-data-lib:1.0.2")
-	implementation("com.sainnt.netshop:common-exception-lib:1.0.2")
-	implementation("com.sainnt.netshop:common-lib-jwt:1.0.2")
+	implementation("com.sainnt.netshop:common-data-lib:1.0.4")
+	implementation("com.sainnt.netshop:common-exception-lib:1.0.4")
+	implementation("com.sainnt.netshop:common-lib-jwt:1.0.3")
 }
 
 

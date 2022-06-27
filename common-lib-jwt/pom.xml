@@ -6,7 +6,7 @@
 
   <groupId>com.sainnt.netshop</groupId>
   <artifactId>common-lib-jwt</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
 
   <name>common-lib-jwt</name>
 
@@ -57,7 +57,7 @@
     <dependency>
       <groupId>com.sainnt.netshop</groupId>
       <artifactId>common-exception-lib</artifactId>
-      <version>1.0.1</version>
+      <version>1.0.4</version>
     </dependency>
 
     <dependency>
