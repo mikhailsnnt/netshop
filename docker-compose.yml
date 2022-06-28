@@ -111,3 +111,5 @@ services:
 volumes:
   postgres:
     driver: local
+  redis:
+    driver: local
