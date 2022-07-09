@@ -1,0 +1,17 @@
+spring:
+  application:
+    name:
+      COMMON-API-AUTH
+  eureka:
+    client:
+      serviceUrl:
+        defaultZone:
+          http://common-eureka-spring:8761/eureka/
+    instance:
+      preferIpAddress: true
+
+jwt:
+  tokenExpiration:
+    1500000
+  refreshTokenExpiration:
+    25920000

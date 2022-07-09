@@ -8,14 +8,13 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
-    show-sql: true
 app:
   security:
     jwt:
       secret:
         someverynotprodsecret
       expiration:
-        300000
+        303330000
 api:
   config:
     defaultPageSize:
