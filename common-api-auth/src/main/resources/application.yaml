@@ -13,3 +13,5 @@ spring:
 jwt:
   tokenExpiration:
     1500000
+  refreshTokenExpiration:
+    25920000

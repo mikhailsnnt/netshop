@@ -13,4 +13,7 @@ interface UserProfileService {
 
     @RequestMapping(method = [RequestMethod.POST], value =["/user/validate"])
     fun validateCredentials(loginRequestDto: LoginDto): UserDto
+
+    @RequestMapping(method = [RequestMethod.GET], value = ["/user/{id}"])
+    fun byId(@PathVariable id: Long, @RequestHeader(name="Authorization") serviceToken: String): UserDto
 }

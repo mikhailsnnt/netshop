@@ -20,7 +20,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 class SecurityConfig(
     @Value("\${netshop.security.pbkey}")
-    private val publicKey: String) {
+    private val publicKey: String
+) {
     @Bean
     fun passwordEncryptionProvider(): PasswordEncoder {
         return BCryptPasswordEncoder()
