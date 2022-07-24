@@ -1,0 +1,8 @@
+.item-icon{
+    color: var(--ui-icons-color);
+}
+
+.item-icon:hover{
+    color: var(--ui-icons-hover-color);
+    transition: color 500ms ease 100ms;
+}

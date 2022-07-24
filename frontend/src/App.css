@@ -1,0 +1,27 @@
+html{
+  --ui-icons-color: #006600;
+  --ui-icons-hover-color: #1a53ff;
+}
+
+.ui-font{
+  font-family: 'Trispace', cursive;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 53px;
+  color: #067DC0;
+}
+
+#root{
+  background:  linear-gradient(167.5deg, rgba(27, 101, 53, 0.2) 46.59%, rgba(168, 198, 108, 0.199964) 67.64%, rgba(225, 221, 114, 0.198) 88.71%), #FFFFFF;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  padding: 0;
+  position: absolute;
+}
+
+.menuBar{
+  padding: 47px 34px;
+}

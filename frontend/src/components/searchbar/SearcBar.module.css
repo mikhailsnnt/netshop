@@ -1,0 +1,15 @@
+.wrapper{
+    display: flex;
+    align-items: center;
+    width: 400px;
+    max-width: 100%;
+}
+
+.search-icon{
+    color: var(--ui-icons-color);
+}
+
+.search-icon-hidden{
+    opacity: 0;
+    transition: opacity 300ms ease;
+}
