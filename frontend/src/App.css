@@ -1,14 +1,9 @@
 html{
   --ui-icons-color: #006600;
   --ui-icons-hover-color: #1a53ff;
-}
-
-.ui-font{
   font-family: 'Trispace', cursive;
   font-weight: 400;
-  font-size: 40px;
   line-height: 53px;
-  color: #067DC0;
 }
 
 #root{

@@ -1,14 +1,15 @@
 import styles from './MenuBar.module.css'
-import {faShoppingCart, faBarsStaggered, faRightToBracket, faUser} from "@fortawesome/free-solid-svg-icons";
+import {faShoppingCart, faRightToBracket, faUser} from "@fortawesome/free-solid-svg-icons";
 import 'font-awesome-animation/css/font-awesome-animation.min.css'
 import SearchBar from "../searchbar/SearchBar";
 import MenuBarItem from "./MenuBarItem";
+import CatalogDropdown from "./CatalogDropdown/CatalogDropdown";
 
 
 export default function MenuBar(props) {
     return (
         <ul className={styles.wrapper}>
-            <MenuBarItem linkTo="/catalog" fontAwesomeIcon={faBarsStaggered}/>
+            <CatalogDropdown/>
             <li>
                 <SearchBar/>
             </li>
